@@ -5,19 +5,18 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.css']
 })
-export class ChatComponent implements OnInit {
+export class AuthComponent implements OnInit {
   user: Observable<firebase.User>;
   items: FirebaseListObservable<any[]>;
-  msgVal: string = '';
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFireDatabase) {
     this.items = af.list('/messages', {
       query: {
-        limitToLast: 7,
+        limitToLast: 5,
       }
     });
 
@@ -26,13 +25,11 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() { }
 
+  login() {
+      this.afAuth.auth.signInAnonymously();
+  }
+
   logout() {
       this.afAuth.auth.signOut();
   }
-
-  Send(desc: string) {
-      this.items.push({ message: desc});
-      this.msgVal = '';
-  }
-
 }

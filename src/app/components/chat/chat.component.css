@@ -1,0 +1,14 @@
+
+#chat-container p {
+    background:#fff;
+    font-size: 14px;
+    padding: 0.5em;
+    color:#696969;
+    margin: 0;
+    width:auto;
+    min-width:200px;
+}
+
+.section {
+    padding: 1.0em;
+}

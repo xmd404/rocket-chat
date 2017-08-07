@@ -1,0 +1,23 @@
+<section class="hero is-primary is-fullheight" *ngIf="!(user | async)?.uid">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <img src="../../assets/rocket.png" class="floating" style="height: 150px; width: 150px;">
+      <br/><br/>
+      <h1 class="title">
+        RocketChat v1.0 
+      </h1>
+      <h2 class="subtitle">
+        <i>Fast, Free, and Secure. Hit the chat button to get started.</i>
+      </h2>
+      <a class="button is-primary is-inverted is-medium" (click)="login()">
+        &nbsp;
+        <span class="icon">
+          <i class="fa fa-comments-o fa-fw"></i>
+        </span>
+        &nbsp;
+        <span>Chat</span>
+        &nbsp;
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,25 +1,75 @@
-<div class="jumbotron">
-    <div class="container">
-        <form class="form-inline">
-            <div class="form-group pull-left">
-                <label for="name"><i class="fa fa-user-circle fa-lg fa-fw"></i></label>
-                <input type="text" class="form-control" id="name" placeholder="Alex Jones">
-                &nbsp; &nbsp; 
-            </div>
-            
-            <div class="form-group pull-left">
-                <label for="message"><i class="fa fa-comment fa-lg fa-fw"></i></label>
-                <input type="text" class="form-control" id="message" placeholder="Type message... press enter to send" [(ngModel)]="message" name="message" (keyup.enter)="sendMessage()">
-            </div>
-        </form>
+<div class="container" *ngIf="(user | async)?.uid">
+  <nav class="navbar ">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="http://rocket.xavierduncan.com">
+        <span class="icon">
+          <img src="../../assets/rocket.png" alt="RocketChat: Fast. Powerful. Secure.">
+        </span>
+        &nbsp; RocketChat
+      </a>
+
+      <a class="navbar-item is-hidden-desktop" href="https://github.com/xduncan" target="_blank">
+        <span class="icon" style="color: #333;">
+          <i class="fa fa-github"></i>
+        </span>
+      </a>
+
+      <a class="navbar-item is-hidden-desktop" href="https://twitter.com/thewebsitekid" target="_blank">
+        <span class="icon" style="color: #55acee;">
+          <i class="fa fa-twitter"></i>
+        </span>
+      </a>
+
+      <a class="navbar-item is-hidden-desktop" (click)="logout()">
+        <span class="icon" style="color: red;">
+          <i class="fa fa-ban fa-fw"></i>
+        </span>
+        &nbsp;
+        <span>End</span>
+      </a>
     </div>
+
+    <div class="navbar-end is-hidden-touch">
+      <a class="navbar-item" href="https://github.com/xduncan" target="_blank">
+       <span class="icon" style="color: #333;">
+          <i class="fa fa-github"></i>
+        </span>
+      </a>
+      <a class="navbar-item" href="https://twitter.com/thewebsitekid" target="_blank">
+        <span class="icon" style="color: #55acee;">
+          <i class="fa fa-twitter"></i>
+        </span>
+      </a>
+      <a class="navbar-item" (click)="logout()">
+        <span class="icon" style="color: red;">
+          <i class="fa fa-ban fa-fw"></i>
+        </span>
+        &nbsp;
+        <span>End</span>
+      </a>
+    </div>
+  </nav>
 </div>
 
-<footer class="footer">
-    <p><a href="http://mnmlist.com/uncopyright-and-a-minimalist-mindset/" target="_blank" style="color: #555;"><u>uncopyright</u></a> &nbsp;•&nbsp; <i class="fa fa-hand-peace-o"></i> &nbsp;•&nbsp; crafted by <u><a href="http://xavierduncan.com" target="_blank" style="color: #555;">xavier duncan</a></u></p>
-</footer>
+<section class="section" *ngIf="(user | async)?.uid">
+  <div class="container">
+    <div class="box" id="chat-container" *ngIf="(user | async)?.uid">
+        <p *ngFor="let item of items | async">{{item.message}}</p>
+    </div>
 
-
-
-
-
+    <div class="field has-addons">
+      <div class="control has-icons-left is-expanded">
+        <input autofocus required class="input is-info" type="text" id="message" *ngIf="(user | async)?.uid" placeholder="Chat here..." (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal">
+        <span class="icon is-small is-left">
+          <i class="fa fa-comments-o"></i>
+        </span>
+      </div>
+      <div class="control">
+        <button class="button is-info">
+          <i class="fa fa-rocket fa-fw"></i>
+          <span class="is-hidden-mobile"> &nbsp; Send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
